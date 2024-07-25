@@ -668,6 +668,7 @@ ax5.set_ylabel("Y") # Y坐标
 
 
 
+    Text(0, 0.5, 'Y')
 
 
 

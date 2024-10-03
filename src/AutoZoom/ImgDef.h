@@ -1,10 +1,10 @@
 #ifndef IMGDEF_H
 #define IMGDEF_H
 
-#include "opencv4/opencv2/opencv.hpp"
 #include "typedef.h"
 #include <cstddef>
 #include <iostream>
+#include <opencv4/opencv2/core/mat.hpp>
 
 class ImgDef {
 public:
@@ -18,6 +18,7 @@ public:
         }
     }
 
+    // !============================== Protect functions =========================! //
 protected:
     /**
      * @brief Check the input image type
@@ -54,14 +55,33 @@ protected:
      * @return float
      */
     float brenner();
+    /**
+     * @brief Use tenengrade function to measure
+     *        the clarity of the picture
+     *
+     * @return float
+     */
+    float tenengrad();
+    /**
+     * @brief Use fft method to measure the clarity
+     *        of the picture
+     *
+     * @return float
+     */
+    float fft_method();
 
     virtual cv::Mat *getImgPtr() const {
         return this->ImgPtr;
     }
 
 private:
+    // ?============================== Variables =========================? //
     cv::Mat *ImgPtr;
-    IMG_TYPE img_type;
+    IMG_TYPE img_type = UNKNOW;
+    bool     four_dir = false;
+    // !============================== Functions =========================! //
+    cv::Mat do_fft(const cv::Mat &img) const;
+    void    fftshift(cv::Mat &fft_result) const;
 };
 
 #endif
